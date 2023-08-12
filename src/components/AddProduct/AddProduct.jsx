@@ -1,4 +1,4 @@
-﻿import * as React from 'react';
+import * as React from 'react';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -180,7 +180,17 @@ export default function ProductCategory() {
                     <TextField id="productName" label="Name" size="large" variant="outlined" required sx={{ width: { xs: 400 } }} value={productName} onChange={handleChange} />
                 </Grid>
                 <Grid item xs={12}>
-                    <CreatableSelect id="categoryName" isClearable options={Categories} width={10000} required  onChange={(newValue) => setcategoryName(newValue)} />
+                    <CreatableSelect id="categoryName" isClearable options={Categories} width={10000} required onChange={(newValue) => setcategoryName(newValue)}
+                        styles={{
+                            control: (provided) => ({
+                                ...provided,
+                                width: 400, // You can adjust the height value here
+                                minWidth: 50, // You can adjust the minHeight value here
+                                height: 50,
+                            }),
+                        }}
+
+                    />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField id="manufacturere" label="Manufacturere" size="large" variant="outlined" required sx={{ width: { xs: 400 } }} value={manufacturere} onChange={handleChange} />
