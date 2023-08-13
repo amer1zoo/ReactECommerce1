@@ -6,6 +6,7 @@ import SignUp from './components/SignUp/SignUp';
 import ProductList from './components/ProductList/ProductList';
 import AddProduct from './components/AddProduct/AddProduct';
 import EditProduct from './components/EditProduct/EditProduct';
+import ProductDetail from './components/ProductDetail/ProductDetail';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -34,6 +35,12 @@ root.render(
             </Route>
             <Route path="/editproduct">
                 <EditProduct />
+            </Route>
+            <Route path="/productdetail/:productid">
+                <ProductDetail />
+            </Route>
+            <Route path="/productdetail">
+                <ProductDetail />
             </Route>
             <Route path="*">
                 {/* When there is no match in URL navigation...*/}
