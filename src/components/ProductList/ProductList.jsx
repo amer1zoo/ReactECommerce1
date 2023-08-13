@@ -1,6 +1,6 @@
-﻿/// <reference path="../productcategory/productcategory.jsx" />
+
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import ProductShow from '../ProductList/ProductShow';
 import ProductCategory from '../ProductCategory/ProductCategory';
@@ -14,7 +14,7 @@ import Grid from '@mui/material/Grid';
 import { Link, useRouteMatch, Switch, Route, useParams } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-
+import Box from '@mui/material/Box';
 
 
 export default function ProductList({ name, icon, price, details }) {
@@ -33,11 +33,29 @@ export default function ProductList({ name, icon, price, details }) {
         setCategory(newCategory);
     };
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenTrue(false);
+        setOpenFalse(false);
+    };
 
     const handleChange = (event) => {
         setSort(event.target.value);
-        
+
     };
+
+    useEffect(() => {
+        if (window.sessionStorage.getItem('ProductModified') === 'OK') {
+            setmessageError(`Product ${window.sessionStorage.getItem('ProductName') } modified successfully`);
+            setOpenTrue(true);
+
+            window.sessionStorage.removeItem('ProductModified');
+            window.sessionStorage.removeItem('ProductName');
+        }
+    }, []);
 
     return (
         <>
