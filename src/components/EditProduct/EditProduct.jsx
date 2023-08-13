@@ -1,4 +1,4 @@
-﻿import * as React from 'react';
+import * as React from 'react';
 import { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -128,6 +128,7 @@ export default function ProductCategory() {
             setOpenTrue(true);
             setmessageError(`Product ${productName} modified successfully`);
             window.sessionStorage.setItem('ProductModified','OK');
+            window.sessionStorage.setItem('ProductName', productName);
             history.goBack();
         } else {
             const result = await response.json();
