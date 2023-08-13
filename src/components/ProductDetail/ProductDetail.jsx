@@ -164,7 +164,12 @@ export default function ProductDetail() {
     }, []);
 
     return (
-        <>
+        <Grid container
+            spacing={2}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            sx={{ minHeight: '100vh', flexGrow: 1 }}>
             <Card sx={{ display: 'flex' }}>
                 <CardMedia
                     component="img"
@@ -175,7 +180,7 @@ export default function ProductDetail() {
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <CardContent sx={{ flex: '1 0 auto' }}>
                         <Typography component="div" variant="h5">
-                            {productName} <Chip label={"Available Quantity: " + availableItems} />
+                            {productName} <Chip label={"Available Quantity: " + availableItems} color="primary" />
                         </Typography>
                         <Typography variant="subtitle2" color="text.secondary" component="div">
                             Category: <strong>{categoryName}</strong>
@@ -194,6 +199,6 @@ export default function ProductDetail() {
                 </Box>
                 
             </Card>
-        </>
+        </Grid>
     );
 }
