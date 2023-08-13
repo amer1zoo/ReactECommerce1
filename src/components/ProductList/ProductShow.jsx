@@ -1,11 +1,9 @@
-﻿import * as React from 'react';
+import * as React from 'react';
 import { useState, useEffect } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
-import { Link, useRouteMatch, Switch, Route, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export default function ProductShow({ sort }) {
-
-    const { url, path } = useRouteMatch();
 
     const [products, setProducts] = useState([]);
 
@@ -22,7 +20,6 @@ export default function ProductShow({ sort }) {
 
     return (
         <>
-
             {products
                 .filter(item => (item.category === categoryitem || categoryitem === "ALL"))
                 .sort((a, b) => {
@@ -41,7 +38,5 @@ export default function ProductShow({ sort }) {
                     <ProductCard key={item.id} id={item.id} name={item.name} price={item.price} details={item.description} icon={item.imageUrl} />
                 ))}
         </>
-
-
     );
 };
