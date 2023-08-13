@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -10,7 +10,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Link, useRouteMatch, Switch, Route, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
@@ -54,7 +54,7 @@ export default function ProductCard({ id, name, icon, price, details }) {
 
     return (
         <Card style={{ display: "flex", flexDirection: "column" }} sx={{ minWidth: 400, m: 3, height: { xs: 150, sm: 400 }, }} >
-            <CardMedia component="img" height="160" image={icon} alt="Paella dish" />
+            <CardMedia component="img" height="160" image={icon} alt={name} />
             <CardContent>
                 <Grid row container>
                     <Grid item xs={6} align="left">
@@ -81,9 +81,7 @@ export default function ProductCard({ id, name, icon, price, details }) {
                     </Grid>
                     <Grid item xs={6} align="right">
                         <IconButton aria-label="edit">
-
                             <Link to={"/editproduct/" + id}><CreateIcon /></Link>
-
                         </IconButton>
                         <IconButton aria-label="remove">
                             <DeleteIcon onClick={handleSubmit} />
