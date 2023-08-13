@@ -1,19 +1,16 @@
 ﻿import * as React from 'react';
 import { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import CreatableSelect from 'react-select/creatable';
-import Stack from '@mui/material/Stack';
+import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export default function ProductCategory() {
+    const history = useHistory();
     const [productName, setproductName] = useState('');
     const [categoryName, setcategoryName] = useState('');
     const [manufacturere, setmanufacturere] = useState('');
@@ -22,7 +19,8 @@ export default function ProductCategory() {
     const [imageURL, setimageURL] = useState('');
     const [productDescription, setproductDescription] = useState('');
 
-    const [categories, setCategories] = useState([]);
+    const [product, setProduct] = useState();
+    const { productid } = useParams();
     const [messageError, setmessageError] = useState('Errors');
 
     const [openTrue, setOpenTrue] = React.useState(false);
@@ -72,11 +70,6 @@ export default function ProductCategory() {
             setOpenFalse(true);
             return false;
         }
-        if (categoryName.length === 0) {
-            setmessageError('Invalid Input, Category can not be empty');
-            setOpenFalse(true);
-            return false;
-        }
         if (availableItems.length === 0) {
             setmessageError('Invalid Input, Available Items can not be empty');
             setOpenFalse(true);
@@ -113,7 +106,7 @@ export default function ProductCategory() {
         }
         const params = {
             name: productName,
-            category: categoryName.value,
+            category: categoryName,
             price: price,
             description: productDescription,
             manufacturer: manufacturere,
@@ -121,9 +114,9 @@ export default function ProductCategory() {
             imageUrl: imageURL
         };
 
-        const response = await fetch('http://localhost:8080/api/products', {
+        const response = await fetch('http://localhost:8080/api/products/' + productid, {
             body: JSON.stringify(params),
-            method: 'POST',
+            method: 'put',
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json;charset=UTF-8",
@@ -133,8 +126,9 @@ export default function ProductCategory() {
 
         if (response.ok) {
             setOpenTrue(true);
-            setmessageError(`Product ${productName} added successfully`);
-
+            setmessageError(`Product ${productName} modified successfully`);
+            window.sessionStorage.setItem('ProductModified','OK');
+            history.goBack();
         } else {
             const result = await response.json();
             setOpenFalse(true);
@@ -143,14 +137,22 @@ export default function ProductCategory() {
 
     }
 
-    const fetchInfo = () => {
-        return fetch('http://localhost:8080/api/products/categories')
+    const fetchProduct = () => {
+        return fetch('http://localhost:8080/api/products/' + productid)
             .then((res) => res.json())
-            .then((d) => setCategories(d.map((item) => ({ value: item, label: item }))));
+            .then((d) => {
+                setproductName(d.name);
+                setcategoryName(d.category);
+                setmanufacturere(d.manufacturer);
+                setavailableItems(d.availableItems+'');
+                setprice(d.price+'');
+                setimageURL(d.imageUrl);
+                setproductDescription(d.description);
+            });
     }
 
     useEffect(() => {
-        fetchInfo();
+        fetchProduct();
     }, []);
 
     return (
@@ -162,24 +164,16 @@ export default function ProductCategory() {
                 alignItems="center"
                 justifyContent="center"
                 sx={{ minHeight: '100vh', flexGrow: 1 }}>
-
                 <Grid item xs={12}>
                     <Typography variant="h6" >
-                        Add Product
+                        Modify Product
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
                     <TextField id="productName" label="Name" size="large" variant="outlined" required style={{ zIndex: 0 }} sx={{ width: { xs: 400 } }} value={productName} onChange={handleChange} />
                 </Grid>
                 <Grid item xs={12}>
-                    <CreatableSelect id="categoryName" isClearable options={categories} required onChange={(newValue) => setcategoryName(newValue)}
-                        styles={{
-                            control: (provided) => ({
-                                ...provided, width: 400, minWidth: 50, height: 50, zIndex: 1,
-                            }),
-                        }}
-
-                    />
+                    <TextField id="categoryName" label="Category" size="large" variant="outlined" required style={{ zIndex: 0 }} sx={{ width: { xs: 400 } }} value={categoryName} />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField id="manufacturere" label="Manufacturere" size="large" variant="outlined" required style={{ zIndex: 0 }} sx={{ width: { xs: 400 } }} value={manufacturere} onChange={handleChange} />

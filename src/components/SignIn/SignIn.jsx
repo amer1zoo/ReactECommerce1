@@ -86,6 +86,7 @@ export default function SignIn() {
         const result = await response.json();
 
         if (response.ok) {
+            localStorage.setItem('token', result.token); 
             window.location = '/products/ALL';
         } else {
             setOpenFalse(true);

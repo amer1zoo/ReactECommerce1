@@ -9,9 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Link, Switch, Route } from "react-router-dom";
-import SignIn from '../SignIn/SignIn';
-import SignUp from '../SignUp/SignUp';
+import { Link } from "react-router-dom";
 export default function TopAppBar() {
 
     const [searchInput, setSearchInput] = useState("");
@@ -23,6 +21,7 @@ export default function TopAppBar() {
 
     const handleClick = (e) => {
         e.preventDefault();
+        localStorage.clear();
         window.location = "/login";
     };
 

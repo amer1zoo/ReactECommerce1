@@ -9,9 +9,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch, Switch, Route, useParams } from 'react-router-dom';
+
 
 export default function ProductCard({ id, name, icon, price, details }) {
+    
+
     return (
         <Card style={{ display: "flex", flexDirection: "column" }} sx={{ minWidth: 400, m: 3, height: { xs: 150, sm: 400 }, }} >
             <CardMedia component="img" height="160" image={icon} alt="Paella dish" />
@@ -41,10 +44,12 @@ export default function ProductCard({ id, name, icon, price, details }) {
                     </Grid>
                     <Grid item xs={6} align="right">
                         <IconButton aria-label="edit">
-                            <CreateIcon />
+                           
+                                <Link to={"/editproduct/" + id}><CreateIcon /></Link>
+                            
                         </IconButton>
                         <IconButton aria-label="remove">
-                            <DeleteIcon />
+                            <Link to={"/products/" + id}><DeleteIcon /></Link>
                         </IconButton>
                     </Grid>
                 </Grid>

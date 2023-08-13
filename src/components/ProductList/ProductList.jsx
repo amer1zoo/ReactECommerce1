@@ -1,6 +1,6 @@
 ﻿/// <reference path="../productcategory/productcategory.jsx" />
 import * as React from 'react';
-import Box from '@mui/material/Box';
+import { useState } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import ProductShow from '../ProductList/ProductShow';
 import ProductCategory from '../ProductCategory/ProductCategory';
@@ -12,7 +12,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 import { Link, useRouteMatch, Switch, Route, useParams } from 'react-router-dom';
-
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 
 
@@ -22,6 +23,11 @@ export default function ProductList({ name, icon, price, details }) {
     const [category, setCategory] = React.useState('ALL');
     const [sort, setSort] = React.useState('');
     const { categoryitem } = useParams();
+
+    const [messageError, setmessageError] = useState('Errors');
+
+    const [openTrue, setOpenTrue] = React.useState(false);
+    const [openFalse, setOpenFalse] = React.useState(false);
 
     const handleAlignment = (event, newCategory) => {
         setCategory(newCategory);
@@ -78,6 +84,18 @@ export default function ProductList({ name, icon, price, details }) {
 
 
             </Box>
+
+            <Snackbar open={openTrue} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert variant="filled" onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    {messageError}
+                </Alert>
+            </Snackbar>
+
+            <Snackbar open={openFalse} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert variant="filled" onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    There are some errors! {messageError}
+                </Alert>
+            </Snackbar>
         </>
 
 
