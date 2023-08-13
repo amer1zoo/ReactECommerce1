@@ -79,7 +79,7 @@ export default function ProductCard({ id, name, icon, price, details }) {
             <CardActions style={{ marginTop: "auto" }}>
                 <Grid row container>
                     <Grid item xs={6} align="left">
-                        <Button variant="contained" color="primary" size="small" component={Link} to={"/products/" + id}>Buy</Button>
+                        <Button variant="contained" color="primary" size="small" component={Link} to={"/productdetail/" + id}>Buy</Button>
                     </Grid>
                     <Grid item xs={6} align="right">
                         <IconButton aria-label="edit">
