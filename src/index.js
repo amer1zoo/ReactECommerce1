@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom/client';
 import TopAppBar from './components/TopAppBar/TopAppBar';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
-import ProductCard from './components/ProductCard/ProductCard';
 import ProductList from './components/ProductList/ProductList';
 import AddProduct from './components/AddProduct/AddProduct';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
+import EditProduct from './components/EditProduct/EditProduct';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 root.render(
     <BrowserRouter>
         <TopAppBar />
@@ -28,6 +28,12 @@ root.render(
             </Route>
             <Route path="/addproduct">
                 <AddProduct />
+            </Route>
+            <Route path="/editproduct/:productid">
+                <EditProduct />
+            </Route>
+            <Route path="/editproduct">
+                <EditProduct />
             </Route>
             <Route path="*">
                 {/* When there is no match in URL navigation...*/}
