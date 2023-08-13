@@ -1,4 +1,4 @@
-﻿import * as React from 'react';
+import * as React from 'react';
 import { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -14,6 +14,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
 
 export default function ProductDetail() {
     const history = useHistory();
@@ -174,7 +175,7 @@ export default function ProductDetail() {
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <CardContent sx={{ flex: '1 0 auto' }}>
                         <Typography component="div" variant="h5">
-                            {productName}
+                            {productName} <Chip label={"Available Quantity: " + availableItems} />
                         </Typography>
                         <Typography variant="subtitle2" color="text.secondary" component="div">
                             Category: <strong>{categoryName}</strong>
@@ -187,21 +188,8 @@ export default function ProductDetail() {
                         </Typography>
                     </CardContent>
                     <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                        <IconButton aria-label="previous">
-                            <Typography variant="h6" color="text.secondary">
-                                {productName}
-                            </Typography>
-                        </IconButton>
-                        <IconButton aria-label="play/pause">
-                            <Typography variant="h6" color="text.secondary">
-                                {productName}
-                            </Typography>
-                        </IconButton>
-                        <IconButton aria-label="next">
-                            <Typography variant="h6" color="text.secondary">
-                                {productName}
-                            </Typography>
-                        </IconButton>
+                        <TextField id="manufacturere" label="Enter Quantity" size="large" variant="outlined" required style={{ zIndex: 0 }} sx={{ width: { xs: 400 } }} />
+                        <Button variant="contained" color="primary" size="small">Place Order</Button>
                     </Box>
                 </Box>
                 
