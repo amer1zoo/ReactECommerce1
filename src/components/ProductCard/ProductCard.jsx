@@ -45,6 +45,8 @@ export default function ProductCard({ id, name, icon, price, details }) {
             setOpenTrue(true);
             setmessageError(`Product ${name} deleted successfully`);
 
+            window.location.reload(false);
+
         } else {
             const result = await response.json();
             setOpenFalse(true);
