@@ -15,6 +15,7 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 export default function ProductDetail() {
     const history = useHistory();
@@ -134,7 +135,7 @@ export default function ProductDetail() {
         if (response.ok) {
             setOpenTrue(true);
             setmessageError(`Product ${productName} modified successfully`);
-            window.sessionStorage.setItem('ProductModified','OK');
+            window.sessionStorage.setItem('ProductModified', 'OK');
             window.sessionStorage.setItem('ProductName', productName);
             history.goBack();
         } else {
@@ -152,8 +153,8 @@ export default function ProductDetail() {
                 setproductName(d.name);
                 setcategoryName(d.category);
                 setmanufacturere(d.manufacturer);
-                setavailableItems(d.availableItems+'');
-                setprice(d.price+'');
+                setavailableItems(d.availableItems + '');
+                setprice(d.price + '');
                 setimageURL(d.imageUrl);
                 setproductDescription(d.description);
             });
@@ -170,16 +171,17 @@ export default function ProductDetail() {
             alignItems="center"
             justifyContent="center"
             sx={{ minHeight: '100vh', flexGrow: 1 }}>
-            <Card sx={{ display: 'flex' }}>
+            <Card sx={{ display: 'flex' }} style={{ border: "none", boxShadow: "none" }}>
                 <CardMedia
                     component="img"
-                    sx={{ width: 151 }}
+                    sx={{ width: 250 }}
                     image={imageURL}
                     alt={productName}
+                    style={{ marginRight: "200" }}
                 />
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <CardContent sx={{ flex: '1 0 auto' }}>
-                        <Typography component="div" variant="h5">
+                        <Typography component="div" variant="h4">
                             {productName} <Chip label={"Available Quantity: " + availableItems} color="primary" />
                         </Typography>
                         <Typography variant="subtitle2" color="text.secondary" component="div">
@@ -193,11 +195,13 @@ export default function ProductDetail() {
                         </Typography>
                     </CardContent>
                     <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                        <TextField id="manufacturere" label="Enter Quantity" size="large" variant="outlined" required style={{ zIndex: 0 }} sx={{ width: { xs: 400 } }} />
-                        <Button variant="contained" color="primary" size="small">Place Order</Button>
+                        <Stack spacing={2} alignItems="center" style={{ width: 400 }}>
+                            <TextField id="manufacturere" label="Enter Quantity" size="large" variant="outlined" required style={{ zIndex: 0 }} sx={{ width: { xs: 400 } }} />
+                            <Button variant="contained" color="primary" size="small">Place Order</Button>
+                        </Stack>
                     </Box>
                 </Box>
-                
+
             </Card>
         </Grid>
     );
