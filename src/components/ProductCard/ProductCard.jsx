@@ -72,7 +72,7 @@ export default function ProductCard({ id, name, icon, price, details }) {
                 </Grid>
             </CardContent>
             <CardContent>
-                <Typography variant="subtitle1" color="text.secondary" component="div" style={{ overflowY: 'scroll' }} sx={{ maxHeight: 100, minHeight: 100}}>
+                <Typography variant="subtitle1" color="text.secondary" component="div" style={{ overflowY: 'auto' }} sx={{ maxHeight: 100, minHeight: 100}}>
                     {details}
                 </Typography>
             </CardContent>
