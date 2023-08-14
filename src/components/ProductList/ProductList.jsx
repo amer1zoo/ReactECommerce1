@@ -1,4 +1,4 @@
-
+﻿
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
@@ -54,6 +54,12 @@ export default function ProductList({ name, icon, price, details }) {
 
             window.sessionStorage.removeItem('ProductModified');
             window.sessionStorage.removeItem('ProductName');
+        }
+        if (window.sessionStorage.getItem('OrderPlaced') === 'OK') {
+            setmessageError(`Order placed successfully`);
+            setOpenTrue(true);
+
+            window.sessionStorage.removeItem('OrderPlaced');
         }
     }, []);
 

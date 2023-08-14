@@ -87,6 +87,7 @@ export default function SignIn() {
 
         if (response.ok) {
             localStorage.setItem('token', result.token); 
+            localStorage.setItem('email', email); 
             window.location = '/products/ALL';
         } else {
             setOpenFalse(true);
@@ -122,7 +123,7 @@ export default function SignIn() {
             <Grid item xs={6}>
                 <Button variant="contained" color="primary" size="large" sx={{ width: { xs: 400 } }} onClick={handleSubmit}>SIGN IN</Button>
             </Grid>
-            <Grid item xs={6} >
+            <Grid item xs={6} style={{ alignItems: "left", justifyContent:"left" }}>
                 <Link href="/signup" variant="text" color="primary" style={{ marginRight: 16 }}>Don't have an account? Sign Up</Link >
             </Grid>
 

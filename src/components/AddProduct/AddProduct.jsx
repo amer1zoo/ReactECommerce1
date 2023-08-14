@@ -13,7 +13,7 @@ import Alert from '@mui/material/Alert';
 import CreatableSelect from 'react-select/creatable';
 import Stack from '@mui/material/Stack';
 
-export default function ProductCategory() {
+export default function AddProduct() {
     const [productName, setproductName] = useState('');
     const [categoryName, setcategoryName] = useState('');
     const [manufacturere, setmanufacturere] = useState('');

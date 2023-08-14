@@ -1,4 +1,4 @@
-import * as React from 'react';
+﻿import * as React from 'react';
 import { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -26,6 +26,7 @@ export default function ProductDetail() {
     const [price, setprice] = useState('');
     const [imageURL, setimageURL] = useState('');
     const [productDescription, setproductDescription] = useState('');
+    const [quantity, setQuantity] = useState(1);
 
     const [product, setProduct] = useState();
     const { productid } = useParams();
@@ -44,105 +45,41 @@ export default function ProductDetail() {
     };
 
     const handleChange = (event) => {
-        switch (event.target.id) {
-            case "productName":
-                setproductName(event.target.value);
-                break;
-            case "categoryName":
-                setcategoryName(event.target.value);
-                break;
-            case "manufacturere":
-                setmanufacturere(event.target.value);
-                break;
-            case "availableItems":
-                setavailableItems(event.target.value);
-                break;
-            case "price":
-                setprice(event.target.value);
-                break;
-            case "imageURL":
-                setimageURL(event.target.value);
-                break;
-            case "productDescription":
-                setproductDescription(event.target.value);
-                break;
-            default:
-                break;
-        }
-
+        setQuantity(event.target.value);
     };
 
     function validateInput() {
-        if (productName.length === 0) {
-            setmessageError('Invalid Input, Product Name can not be empty');
+        if (quantity.length === 0) {
+            setmessageError('Invalid Input, Quantity can not be empty');
             setOpenFalse(true);
             return false;
         }
-        if (availableItems.length === 0) {
-            setmessageError('Invalid Input, Available Items can not be empty');
+        if (isNaN(quantity) || (quantity + '').includes('.')) {
+            setmessageError('Invalid Input, Quantity Items is not valid');
             setOpenFalse(true);
             return false;
         }
-        if (price.length === 0) {
-            setmessageError('Invalid Input, Price can not be empty');
+        if (quantity <= 0) {
+            setmessageError('Invalid Input, Quantity can not be less than 1!');
             setOpenFalse(true);
             return false;
         }
-        if (manufacturere.length === 0) {
-            setmessageError('Invalid Input, Manufacturere can not be empty');
-            setOpenFalse(true);
-            return false;
-        }
-        if (isNaN(price)) {
-            setmessageError('Invalid Input, Price is not valid');
-            setOpenFalse(true);
-            return false;
-        }
-        if (isNaN(availableItems) || availableItems.includes('.')) {
-            setmessageError('Invalid Input, Available Items is not valid');
+        if (parseInt(quantity) > parseInt(availableItems)) {
+            setmessageError('Invalid Input, there are not enough items in stock!');
             setOpenFalse(true);
             return false;
         }
         return true;
     }
 
-    async function handleSubmit(e) {
+    function handleOrder(e) {
         e.preventDefault();
 
         if (!validateInput()) {
             return;
         }
-        const params = {
-            name: productName,
-            category: categoryName,
-            price: price,
-            description: productDescription,
-            manufacturer: manufacturere,
-            availableItems: availableItems,
-            imageUrl: imageURL
-        };
-
-        const response = await fetch('http://localhost:8080/api/products/' + productid, {
-            body: JSON.stringify(params),
-            method: 'put',
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json;charset=UTF-8",
-                "Authorization": 'Bearer ' + localStorage.getItem('token')
-            }
-        });
-
-        if (response.ok) {
-            setOpenTrue(true);
-            setmessageError(`Product ${productName} modified successfully`);
-            window.sessionStorage.setItem('ProductModified', 'OK');
-            window.sessionStorage.setItem('ProductName', productName);
-            history.goBack();
-        } else {
-            const result = await response.json();
-            setOpenFalse(true);
-            setmessageError(result.message);
-        }
+        window.sessionStorage.setItem('ProductQuantity' + productid, quantity);
+        window.location = "../order/" + productid;
 
     }
 
@@ -196,13 +133,24 @@ export default function ProductDetail() {
                     </CardContent>
                     <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
                         <Stack spacing={2} alignItems="center" style={{ width: 400 }}>
-                            <TextField id="manufacturere" label="Enter Quantity" size="large" variant="outlined" required style={{ zIndex: 0 }} sx={{ width: { xs: 400 } }} />
-                            <Button variant="contained" color="primary" size="small">Place Order</Button>
+                            <TextField id="quantity" label="Enter Quantity" size="large" variant="outlined" required style={{ zIndex: 0 }} sx={{ width: { xs: 400 } }} value={quantity} onChange={handleChange} />
+                            <Button variant="contained" color="primary" size="small" onClick={handleOrder}>Place Order</Button>
                         </Stack>
                     </Box>
                 </Box>
 
             </Card>
+            <Snackbar open={openTrue} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert variant="filled" onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    {messageError}
+                </Alert>
+            </Snackbar>
+
+            <Snackbar open={openFalse} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert variant="filled" onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    {messageError}
+                </Alert>
+            </Snackbar>
         </Grid>
     );
 }
