@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import MyImage from '../../assets/asdasdasdasd.jpg';
+
 export default function ProductCard({ id, name, icon, price, details }) {
 
     const [messageError, setmessageError] = useState('Errors');
@@ -56,7 +56,7 @@ export default function ProductCard({ id, name, icon, price, details }) {
 
     return (
         <Card style={{ display: "flex", flexDirection: "column" }} sx={{ maxWidth: 400, minWidth: 400, m: 3, height: { xs: 150, sm: 400 }, }} >
-            <CardMedia component="img" height="160" image={icon} alt={name} />{/*image={icon}*/}
+            <CardMedia component="img" height="160" image={icon} alt={name} />
             <CardContent>
                 <Grid row container>
                     <Grid item xs={6} align="left">
