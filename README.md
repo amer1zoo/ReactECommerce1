@@ -1,3 +1,8 @@
+# To get the right way with this app
+
+The host URL will be ### `http://localhost:8080/` 
+To use something else change the path in `common/constants.jsx`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
