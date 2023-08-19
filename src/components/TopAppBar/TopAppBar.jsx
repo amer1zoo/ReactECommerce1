@@ -8,13 +8,14 @@ import useAuthentication from "../../common/useAuthentication";
 
 export default function TopAppBar() {
     const { AuthCtx } = useAuthentication();
-    const { user, logOut } = useContext(AuthCtx);
+    const { user, logOut, searchData,search } = useContext(AuthCtx);
 
     const [searchInput, setSearchInput] = useState("");
 
     const handleChange = (e) => {
         e.preventDefault();
-        setSearchInput(e.target.value);
+        searchData(e.target.value);
+        setSearchInput(search);
     };
 
     return (

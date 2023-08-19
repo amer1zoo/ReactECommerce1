@@ -1,10 +1,13 @@
 ﻿import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import { useParams } from 'react-router-dom';
 import { URL_PRODUCT } from '../../common/constants';
+import useAuthentication from "../../common/useAuthentication";
 
 export default function ProductShow({ sort }) {
+    const { AuthCtx } = useAuthentication();
+    const { search } = useContext(AuthCtx);
 
     const [products, setProducts] = useState([]);
 
@@ -23,6 +26,7 @@ export default function ProductShow({ sort }) {
         <>
             {products
                 .filter(item => (item.category === categoryitem || categoryitem === "ALL"))
+                .filter(item => item.name.toUpperCase().includes(search.toUpperCase()))
                 .sort((a, b) => {
                     if (sort === 1) {
                         return 0;
