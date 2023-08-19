@@ -1,16 +1,21 @@
 ﻿import * as React from 'react';
-import { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { useState, useContext, useEffect } from 'react';
+import { Alert, Snackbar, Grid, TextField, Button, Typography, Link, Avatar } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import useAuthentication from "../../common/useAuthentication";
+import { useHistory, useLocation } from "react-router-dom";
+import { URL_SING_IN, URL_USERS } from '../../common/constants';
 
 export default function SignIn() {
+    const { AuthCtx } = useAuthentication();
+    const { login, user, error } = useContext(AuthCtx);
+    const history = useHistory();
+    const location = useLocation();
+    const { from } = (location && location.state) || { from: { pathname: "/products/ALL" } };
+
+    useEffect(() => {
+        user && history.replace(from);
+    }, [user, from, history]);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -69,12 +74,14 @@ export default function SignIn() {
         if (!validateInput()) {
             return;
         }
+
         const params = {
             username: email,
             password: password
         };
 
-        const response = await fetch('http://localhost:8080/api/auth/signin', {
+
+        const response = await fetch(URL_SING_IN, {
             body: JSON.stringify(params),
             method: 'POST',
             headers: {
@@ -85,15 +92,27 @@ export default function SignIn() {
 
         const result = await response.json();
 
+        let role1;
         if (response.ok) {
-            localStorage.setItem('token', result.token); 
-            localStorage.setItem('email', email); 
-            window.location = '/products/ALL';
+            localStorage.setItem('token', result.token);
+            localStorage.setItem('email', email);
+            try {
+                await fetch(URL_USERS, {
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json;charset=UTF-8",
+                        "Authorization": 'Bearer ' + result.token
+                    }
+                })
+                    .then((res) => res.json())
+                    .then((d) => { role1 = (d.filter((item) => item.email === email)[0].roles[0].name); });
+            } catch { role1 = "USER"; }
+
+            login(true, email, result.token, role1);
         } else {
             setOpenFalse(true);
-            setmessageError('You can not login to the system. Please register first if you do not have an account.');
+            setmessageError('You can not login to the system without the correct data! Please register first if you do not have an account.');
         }
-
     }
 
     return (
@@ -123,10 +142,9 @@ export default function SignIn() {
             <Grid item xs={6}>
                 <Button variant="contained" color="primary" size="large" sx={{ width: { xs: 400 } }} onClick={handleSubmit}>SIGN IN</Button>
             </Grid>
-            <Grid item xs={6} style={{ alignItems: "left", justifyContent:"left" }}>
+            <Grid item xs={6} style={{ alignItems: "left", justifyContent: "left" }}>
                 <Link href="/signup" variant="text" color="primary" style={{ marginRight: 16 }}>Don't have an account? Sign Up</Link >
             </Grid>
-
 
             <Snackbar open={openTrue} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
                 <Alert variant="filled" onClose={handleClose} severity="success" sx={{ width: '100%' }}>

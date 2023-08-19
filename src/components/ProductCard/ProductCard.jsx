@@ -1,20 +1,14 @@
-import * as React from 'react';
-import { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Grid from '@mui/material/Grid';
-import CreateIcon from '@mui/icons-material/Create';
-import DeleteIcon from '@mui/icons-material/Delete';
+﻿import * as React from 'react';
+import { useState, useContext } from 'react';
+import { Alert, Snackbar, Grid, IconButton, Button, Typography, Card, CardActions, CardContent, CardMedia } from '@mui/material';
+import { CreateIcon, DeleteIcon } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import useAuthentication from "../../common/useAuthentication";
+import { URL_PRODUCT } from '../../common/constants';
 
 export default function ProductCard({ id, name, icon, price, details }) {
+    const { AuthCtx } = useAuthentication();
+    const { user } = useContext(AuthCtx);
 
     const [messageError, setmessageError] = useState('Errors');
 
@@ -32,7 +26,7 @@ export default function ProductCard({ id, name, icon, price, details }) {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        const response = await fetch('http://localhost:8080/api/products/' + id, {
+        const response = await fetch(URL_PRODUCT + '/' + id, {
             method: 'DELETE',
             headers: {
                 "Accept": "application/json",
@@ -72,7 +66,7 @@ export default function ProductCard({ id, name, icon, price, details }) {
                 </Grid>
             </CardContent>
             <CardContent>
-                <Typography variant="subtitle1" color="text.secondary" component="div" style={{ overflowY: 'auto' }} sx={{ maxHeight: 100, minHeight: 100}}>
+                <Typography variant="subtitle1" color="text.secondary" component="div" style={{ overflowY: 'auto' }} sx={{ maxHeight: 100, minHeight: 100 }}>
                     {details}
                 </Typography>
             </CardContent>
@@ -81,14 +75,16 @@ export default function ProductCard({ id, name, icon, price, details }) {
                     <Grid item xs={6} align="left">
                         <Button variant="contained" color="primary" size="small" component={Link} to={"/productdetail/" + id}>Buy</Button>
                     </Grid>
-                    <Grid item xs={6} align="right">
-                        <IconButton aria-label="edit">
-                            <Link to={"/editproduct/" + id}><CreateIcon /></Link>
-                        </IconButton>
-                        <IconButton aria-label="remove">
-                            <DeleteIcon onClick={handleSubmit} />
-                        </IconButton>
-                    </Grid>
+                    {
+                        !user ? (<></>) : user.role === "USER" ? (<></>) : (<Grid item xs={6} align="right">
+                            <IconButton aria-label="edit">
+                                <Link to={"/editproduct/" + id}><CreateIcon /></Link>
+                            </IconButton>
+                            <IconButton aria-label="remove">
+                                <DeleteIcon onClick={handleSubmit} />
+                            </IconButton>
+                        </Grid>)
+                    }
                 </Grid>
             </CardActions>
 

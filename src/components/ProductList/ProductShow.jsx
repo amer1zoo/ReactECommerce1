@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import { useParams } from 'react-router-dom';
+import { URL_PRODUCT } from '../../common/constants';
 
 export default function ProductShow({ sort }) {
 
@@ -9,7 +10,7 @@ export default function ProductShow({ sort }) {
 
     const { categoryitem } = useParams();
     const fetchInfo = () => {
-        return fetch('http://localhost:8080/api/products')
+        return fetch(URL_PRODUCT)
             .then((res) => res.json())
             .then((d) => setProducts(d));
     }

@@ -1,15 +1,8 @@
 ﻿import * as React from 'react';
 import { useState } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { Alert, Snackbar, Grid, TextField, Button, Typography, Avatar, Link, Box } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import { URL_SING_UP } from '../../common/constants';
 
 export default function SignUp() {
 
@@ -113,7 +106,7 @@ export default function SignUp() {
             contactNumber: contact
         };
 
-        const response = await fetch('http://localhost:8080/api/auth/signup', {
+        const response = await fetch(URL_SING_UP, {
             body: JSON.stringify(params),
             method: 'POST',
             headers: {

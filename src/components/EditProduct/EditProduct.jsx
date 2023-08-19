@@ -1,13 +1,8 @@
 ﻿import * as React from 'react';
 import { useState, useEffect } from 'react';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import { useParams } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { Alert, Snackbar, Grid, TextField, Button, Typography } from '@mui/material';
+import { useHistory, useParams } from 'react-router-dom';
+import { URL_PRODUCT } from '../../common/constants';
 
 export default function EditProduct() {
     const history = useHistory();
@@ -19,7 +14,6 @@ export default function EditProduct() {
     const [imageURL, setimageURL] = useState('');
     const [productDescription, setproductDescription] = useState('');
 
-    const [product, setProduct] = useState();
     const { productid } = useParams();
     const [messageError, setmessageError] = useState('Errors');
 
@@ -114,7 +108,7 @@ export default function EditProduct() {
             imageUrl: imageURL
         };
 
-        const response = await fetch('http://localhost:8080/api/products/' + productid, {
+        const response = await fetch(URL_PRODUCT + '/' + productid, {
             body: JSON.stringify(params),
             method: 'put',
             headers: {
@@ -127,7 +121,7 @@ export default function EditProduct() {
         if (response.ok) {
             setOpenTrue(true);
             setmessageError(`Product ${productName} modified successfully`);
-            window.sessionStorage.setItem('ProductModified','OK');
+            window.sessionStorage.setItem('ProductModified', 'OK');
             window.sessionStorage.setItem('ProductName', productName);
             history.goBack();
         } else {
@@ -139,14 +133,14 @@ export default function EditProduct() {
     }
 
     const fetchProduct = () => {
-        return fetch('http://localhost:8080/api/products/' + productid)
+        return fetch(URL_PRODUCT + '/' + productid)
             .then((res) => res.json())
             .then((d) => {
                 setproductName(d.name);
                 setcategoryName(d.category);
                 setmanufacturere(d.manufacturer);
-                setavailableItems(d.availableItems+'');
-                setprice(d.price+'');
+                setavailableItems(d.availableItems + '');
+                setprice(d.price + '');
                 setimageURL(d.imageUrl);
                 setproductDescription(d.description);
             });

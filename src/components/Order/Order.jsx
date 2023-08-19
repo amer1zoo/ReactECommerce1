@@ -1,22 +1,9 @@
 ﻿import * as React from 'react';
 import { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Alert, Snackbar, Grid, Button, Typography, Box, Stack, Stepper, Step, StepLabel } from '@mui/material';
 import Address from './Address';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import { useParams } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Stack from '@mui/material/Stack';
-import Grid from '@mui/material/Grid';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { URL_ORDER, URL_PRODUCT, URL_ADDRESS } from '../../common/constants';
 
 const steps = ['Items', 'Select Address', 'Confirm Order'];
 
@@ -55,7 +42,7 @@ export default function Order({ qty }) {
             return;
         }
 
-        fetch('http://localhost:8080/api/addresses/' + selectedAddress, {
+        fetch(URL_ADDRESS + '/' + selectedAddress, {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json;charset=UTF-8",
@@ -74,13 +61,13 @@ export default function Order({ qty }) {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handelAddress = (address,user) => {
+    const handelAddress = (address, user) => {
         setSelectedAddress(address);
         setUser(user);
     }
 
     const fetchProduct = () => {
-        return fetch('http://localhost:8080/api/products/' + productid, {
+        return fetch(URL_PRODUCT + '/' + productid, {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json;charset=UTF-8",
@@ -106,7 +93,7 @@ export default function Order({ qty }) {
             user: user
         };
 
-        const response = await fetch('http://localhost:8080/api/orders' , {
+        const response = await fetch(URL_ORDER, {
             body: JSON.stringify(params),
             method: 'POST',
             headers: {

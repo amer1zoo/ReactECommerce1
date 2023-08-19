@@ -1,37 +1,20 @@
 ﻿
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import ProductCard from '../ProductCard/ProductCard';
+import { Alert, Snackbar, Grid, InputLabel, MenuItem, FormControl, Select, Box } from '@mui/material';
 import ProductShow from '../ProductList/ProductShow';
 import ProductCategory from '../ProductCategory/ProductCategory';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Grid from '@mui/material/Grid';
-import { Link, useRouteMatch, Switch, Route, useParams } from 'react-router-dom';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
+import { useRouteMatch, Switch, Route } from 'react-router-dom';
 
 
 export default function ProductList({ name, icon, price, details }) {
-    const { url, path } = useRouteMatch();
-    const routeMatch = useRouteMatch();
-    const [category, setCategory] = React.useState('ALL');
+    const { path } = useRouteMatch();
     const [sort, setSort] = React.useState('');
-    const { categoryitem } = useParams();
 
     const [messageError, setmessageError] = useState('Errors');
 
     const [openTrue, setOpenTrue] = React.useState(false);
     const [openFalse, setOpenFalse] = React.useState(false);
-
-    const handleAlignment = (event, newCategory) => {
-        setCategory(newCategory);
-    };
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -49,7 +32,7 @@ export default function ProductList({ name, icon, price, details }) {
 
     useEffect(() => {
         if (window.sessionStorage.getItem('ProductModified') === 'OK') {
-            setmessageError(`Product ${window.sessionStorage.getItem('ProductName') } modified successfully`);
+            setmessageError(`Product ${window.sessionStorage.getItem('ProductName')} modified successfully`);
             setOpenTrue(true);
 
             window.sessionStorage.removeItem('ProductModified');

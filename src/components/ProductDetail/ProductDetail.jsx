@@ -1,34 +1,18 @@
 ﻿import * as React from 'react';
 import { useState, useEffect } from 'react';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import { Alert, Snackbar, Grid, TextField, Button, Typography, Card, CardContent, CardMedia, Box, Chip, Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
-import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
+import { URL_PRODUCT } from '../../common/constants';
 
 export default function ProductDetail() {
-    const history = useHistory();
     const [productName, setproductName] = useState('');
     const [categoryName, setcategoryName] = useState('');
-    const [manufacturere, setmanufacturere] = useState('');
     const [availableItems, setavailableItems] = useState('');
     const [price, setprice] = useState('');
     const [imageURL, setimageURL] = useState('');
     const [productDescription, setproductDescription] = useState('');
     const [quantity, setQuantity] = useState(1);
 
-    const [product, setProduct] = useState();
     const { productid } = useParams();
     const [messageError, setmessageError] = useState('Errors');
 
@@ -84,12 +68,11 @@ export default function ProductDetail() {
     }
 
     const fetchProduct = () => {
-        return fetch('http://localhost:8080/api/products/' + productid)
+        return fetch(URL_PRODUCT+'/' + productid)
             .then((res) => res.json())
             .then((d) => {
                 setproductName(d.name);
                 setcategoryName(d.category);
-                setmanufacturere(d.manufacturer);
                 setavailableItems(d.availableItems + '');
                 setprice(d.price + '');
                 setimageURL(d.imageUrl);

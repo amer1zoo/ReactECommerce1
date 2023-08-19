@@ -1,8 +1,8 @@
 ﻿import * as React from 'react';
 import { useState, useEffect } from 'react';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { Link, useRouteMatch, Switch, Route, useParams } from 'react-router-dom';
+import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { URL_PRODUCT } from '../../common/constants';
 
 export default function ProductCategory() {
     const [categories, setCategories] = useState([]);
@@ -10,7 +10,7 @@ export default function ProductCategory() {
     const [category, setCategory] = useState('ALL');
 
     const fetchInfo = () => {
-        return fetch('http://localhost:8080/api/products/categories')
+        return fetch(URL_PRODUCT + '/categories')
             .then((res) => res.json())
             .then((d) => { setCategories(d); d.unshift('ALL'); });
     }

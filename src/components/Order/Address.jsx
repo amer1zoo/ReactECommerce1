@@ -1,19 +1,7 @@
 ﻿import * as React from 'react';
 import { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { Alert, Snackbar, Grid, TextField, Button, Typography, MenuItem, FormControl, Select } from '@mui/material';
+import { URL_USERS, URL_ADDRESS } from '../../common/constants';
 
 export default function Address({ handelAddress }) {
 
@@ -21,7 +9,7 @@ export default function Address({ handelAddress }) {
     const [user, setUser] = useState('');
 
     const fetchInfo = () => {
-        return fetch('http://localhost:8080/api/addresses', {
+        return fetch(URL_ADDRESS, {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json;charset=UTF-8",
@@ -38,7 +26,7 @@ export default function Address({ handelAddress }) {
     }, []);
 
     const fetchUser = () => {
-        return fetch('http://localhost:8080/api/users', {
+        return fetch(URL_USERS, {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json;charset=UTF-8",
@@ -153,7 +141,7 @@ export default function Address({ handelAddress }) {
             user: user,
         };
         console.log(JSON.stringify(params));
-        const response = await fetch('http://localhost:8080/api/addresses', {
+        const response = await fetch(URL_ADDRESS, {
             body: JSON.stringify(params),
             method: 'POST',
             headers: {

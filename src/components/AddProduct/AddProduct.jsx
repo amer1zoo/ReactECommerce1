@@ -1,17 +1,8 @@
 ﻿import * as React from 'react';
 import { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import { Alert, Snackbar, Grid, TextField, Button, Typography } from '@mui/material';
 import CreatableSelect from 'react-select/creatable';
-import Stack from '@mui/material/Stack';
+import { URL_PRODUCT } from '../../common/constants';
 
 export default function AddProduct() {
     const [productName, setproductName] = useState('');
@@ -121,7 +112,7 @@ export default function AddProduct() {
             imageUrl: imageURL
         };
 
-        const response = await fetch('http://localhost:8080/api/products', {
+        const response = await fetch(URL_PRODUCT, {
             body: JSON.stringify(params),
             method: 'POST',
             headers: {
@@ -144,7 +135,7 @@ export default function AddProduct() {
     }
 
     const fetchInfo = () => {
-        return fetch('http://localhost:8080/api/products/categories')
+        return fetch(URL_PRODUCT + '/categories')
             .then((res) => res.json())
             .then((d) => setCategories(d.map((item) => ({ value: item, label: item }))));
     }
