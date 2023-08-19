@@ -35,7 +35,7 @@ function ConnectedApp() {
                 <Route path="/signup">
                     <SignUp />
                 </Route>
-                <Protected user={user} role="USER" path="/products">
+                <Protected user={user} role="ADMIN;USER" path="/products">
                     <ProductList />
                 </Protected>
                 <Protected user={user} role="ADMIN" path="/addproduct">
@@ -47,16 +47,16 @@ function ConnectedApp() {
                 <Protected user={user} role="ADMIN" path="/editproduct">
                     <EditProduct />
                 </Protected>
-                <Protected user={user} role="USER" path="/productdetail/:productid">
+                <Protected user={user} role="ADMIN;USER" path="/productdetail/:productid">
                     <ProductDetail />
                 </Protected>
-                <Protected user={user} role="USER" path="/productdetail">
+                <Protected user={user} role="ADMIN;USER" path="/productdetail">
                     <ProductDetail />
                 </Protected>
-                <Protected user={user} role="USER" path="/order/:productid">
+                <Protected user={user} role="ADMIN;USER" path="/order/:productid">
                     <Order />
                 </Protected>
-                <Protected user={user} role="USER" path="/order">
+                <Protected user={user} role="ADMIN;USER" path="/order">
                     <Order />
                 </Protected>
                 <Route path="*">

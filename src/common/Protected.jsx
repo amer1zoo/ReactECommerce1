@@ -5,7 +5,7 @@ const Protected = ({ user, role, children, ...rest }) => (
     <Route
         {...rest}
         render={({ location }) =>
-            user && user.role.includes(role) ? (
+            user && role.includes(user.role) ? (
                 children
             ) : (
                 <Redirect

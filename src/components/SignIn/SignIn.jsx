@@ -107,7 +107,6 @@ export default function SignIn() {
                     .then((res) => res.json())
                     .then((d) => { role1 = (d.filter((item) => item.email === email)[0].roles[0].name); });
             } catch { role1 = "USER"; }
-
             login(true, email, result.token, role1);
         } else {
             setOpenFalse(true);

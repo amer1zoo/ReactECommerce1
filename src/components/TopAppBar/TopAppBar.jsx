@@ -1,6 +1,8 @@
 ﻿import React, { useState, useContext } from "react";
-import { AppBar, Box, Toolbar, IconButton, ShoppingCart, SearchIcon, InputAdornment, TextField, Button, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, InputAdornment, TextField, Button, Typography } from '@mui/material';
 import { Link } from "react-router-dom";
+import ShoppingCart from '@mui/icons-material/ShoppingCart';
+import SearchIcon from '@mui/icons-material/Search';
 import "./TopAppBar.css";
 import useAuthentication from "../../common/useAuthentication";
 

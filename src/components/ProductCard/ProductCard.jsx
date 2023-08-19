@@ -1,7 +1,9 @@
 ﻿import * as React from 'react';
 import { useState, useContext } from 'react';
 import { Alert, Snackbar, Grid, IconButton, Button, Typography, Card, CardActions, CardContent, CardMedia } from '@mui/material';
-import { CreateIcon, DeleteIcon } from '@mui/icons-material';
+
+import CreateIcon from '@mui/icons-material/Create';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 import useAuthentication from "../../common/useAuthentication";
 import { URL_PRODUCT } from '../../common/constants';
