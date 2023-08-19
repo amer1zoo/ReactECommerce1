@@ -15,7 +15,8 @@ export default function TopAppBar() {
     const handleChange = (e) => {
         e.preventDefault();
         searchData(e.target.value);
-        setSearchInput(search);
+        //setSearchInput(search);
+        //setSearchInput(e.target.value);
     };
 
     return (
@@ -51,7 +52,7 @@ export default function TopAppBar() {
                                 }}
                                 style={{ width: "50ch", backgroundColor: "#5c6bc0" }}
                                 onChange={handleChange}
-                                value={searchInput}
+                                value={search}
                             />)
                         }
                     </Box>
