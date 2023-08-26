@@ -7,7 +7,7 @@ import ProductCategory from '../ProductCategory/ProductCategory';
 import { useRouteMatch, Switch, Route } from 'react-router-dom';
 
 
-export default function ProductList({ name, icon, price, details }) {
+export default function ProductList({ name, icon, price, details, filter }) {
     const { path } = useRouteMatch();
     const [sort, setSort] = React.useState('');
 
@@ -84,7 +84,7 @@ export default function ProductList({ name, icon, price, details }) {
 
                 <Switch>
                     <Route path={`${path}/:categoryitem`}>
-                        <ProductShow sort={sort} />
+                        <ProductShow sort={sort} filter={filter} />
                     </Route>
                 </Switch>
 

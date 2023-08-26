@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import TopAppBar from './components/TopAppBar/TopAppBar';
 import SignIn from './components/SignIn/SignIn';
@@ -22,10 +22,13 @@ function App() {
 function ConnectedApp() {
     const { AuthCtx } = useAuthentication();
     const { user } = useContext(AuthCtx);
-
+    const [ search, setSearch ] = useState('');
+    const handelFilter = (dataFilter) => {
+        setSearch(dataFilter);
+    }
     return (
         <BrowserRouter>
-            <TopAppBar />
+            <TopAppBar handelFilter={handelFilter} />
             <Switch>
                 <Route exact path="/">
                 </Route>
@@ -36,7 +39,7 @@ function ConnectedApp() {
                     <SignUp />
                 </Route>
                 <Protected user={user} role="ADMIN;USER" path="/products">
-                    <ProductList />
+                    <ProductList filter={search} />
                 </Protected>
                 <Protected user={user} role="ADMIN" path="/addproduct">
                     <AddProduct />

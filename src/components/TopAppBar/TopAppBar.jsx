@@ -5,18 +5,21 @@ import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import SearchIcon from '@mui/icons-material/Search';
 import "./TopAppBar.css";
 import useAuthentication from "../../common/useAuthentication";
+import SearchInput from "../Search/SearchInput";
 
-export default function TopAppBar() {
+export default function TopAppBar({ handelFilter }) {
     const { AuthCtx } = useAuthentication();
-    const { user, logOut, searchData,search } = useContext(AuthCtx);
-
+    const { user, logOut, searchData, search } = useContext(AuthCtx);
+    
     const [searchInput, setSearchInput] = useState("");
 
     const handleChange = (e) => {
         e.preventDefault();
-        searchData(e.target.value);
+        //searchData(e.target.value);
         //setSearchInput(search);
         //setSearchInput(e.target.value);
+        setSearchInput(e.target.value);
+        handelFilter(e.target.value);
     };
 
     return (
@@ -39,20 +42,9 @@ export default function TopAppBar() {
                         sx={{ mr: 2, flexGrow: 1, display: "flex" }}
                     >
                         {!user ? (<></>) :
-                            (<TextField className="input-box"
-                                placeholder="Search..."
-                                size="small"
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start"  >
-                                            <SearchIcon className="search-icon" />
-                                        </InputAdornment>
-                                    ),
-                                    style: { color: '#b1bcc2' }
-                                }}
-                                style={{ width: "50ch", backgroundColor: "#5c6bc0" }}
-                                onChange={handleChange}
-                                value={search}
+                            (<SearchInput
+                                searchText={searchInput}
+                                onSearchChange={handleChange}
                             />)
                         }
                     </Box>
