@@ -15,7 +15,6 @@ const useAuthentication = (history, location) => {
     const [user, setUser] = useState(null);
     const [role, setRole] = useState(null);
     const [error, setError] = useState(null);
-    const [search, setSearch] = useState('');
 
     const login = (status, email, token, role1) =>
         doLogin(status, email, token, role1)
@@ -31,14 +30,10 @@ const useAuthentication = (history, location) => {
         setError(null);
     };
 
-    const searchData = (data) => {
-        setSearch(data);
-    };
-
     return {
         AuthCtx,
         AuthProvider: ({ children }) => (
-            <AuthCtx.Provider value={{ error, user, login, logOut, searchData, search }}>
+            <AuthCtx.Provider value={{ error, user, login, logOut}}>
                 {children}
             </AuthCtx.Provider>
         )

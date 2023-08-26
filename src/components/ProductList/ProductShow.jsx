@@ -3,12 +3,8 @@ import { useState, useEffect, useContext } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import { useParams } from 'react-router-dom';
 import { URL_PRODUCT } from '../../common/constants';
-//import useAuthentication from "../../common/useAuthentication";
 
 export default function ProductShow({ sort, filter }) {
-    //const { AuthCtx } = useAuthentication();
-    //const { search } = useContext(AuthCtx);
-
     const [products, setProducts] = useState([]);
 
     const { categoryitem } = useParams();

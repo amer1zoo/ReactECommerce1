@@ -1,23 +1,19 @@
 ﻿import React, { useState, useContext } from "react";
-import { AppBar, Box, Toolbar, IconButton, InputAdornment, TextField, Button, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, Button, Typography } from '@mui/material';
 import { Link } from "react-router-dom";
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
-import SearchIcon from '@mui/icons-material/Search';
 import "./TopAppBar.css";
 import useAuthentication from "../../common/useAuthentication";
 import SearchInput from "../Search/SearchInput";
 
 export default function TopAppBar({ handelFilter }) {
     const { AuthCtx } = useAuthentication();
-    const { user, logOut, searchData, search } = useContext(AuthCtx);
+    const { user, logOut } = useContext(AuthCtx);
     
     const [searchInput, setSearchInput] = useState("");
 
     const handleChange = (e) => {
         e.preventDefault();
-        //searchData(e.target.value);
-        //setSearchInput(search);
-        //setSearchInput(e.target.value);
         setSearchInput(e.target.value);
         handelFilter(e.target.value);
     };
