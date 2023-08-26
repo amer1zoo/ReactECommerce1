@@ -27,11 +27,11 @@ export default function TopAppBar({ handelFilter }) {
                         edge="start"
                         color="inherit"
                         aria-label="menu"
-                        sx={{ ml: 0.2, p: 0 }}
+                        sx={{ ml: 0.2 }}
                     >
                         <ShoppingCart />
                     </IconButton>
-                    <Typography sx={{ mr: 0,p:0 }} variant="h6">upGrad E-Shop</Typography>
+                    <Typography sx={{ mr: 0,pl:1 }} variant="h6">upGrad E-Shop</Typography>
                     <Box
                         component="div"
                         justifyContent="center"
