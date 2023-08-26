@@ -156,6 +156,10 @@ export default function SignIn() {
                     There are some errors! {messageError}
                 </Alert>
             </Snackbar>
+
+            <Grid className='sign-up-footer' style={{ marginTop: 80 }}>
+                Copyright &copy; <Link href="https://www.upgrad.com/">upGrad</Link> 2023
+            </Grid>
         </Grid>
 
     );

@@ -9,7 +9,7 @@ import SearchInput from "../Search/SearchInput";
 export default function TopAppBar({ handelFilter }) {
     const { AuthCtx } = useAuthentication();
     const { user, logOut } = useContext(AuthCtx);
-    
+
     const [searchInput, setSearchInput] = useState("");
 
     const handleChange = (e) => {
@@ -27,11 +27,11 @@ export default function TopAppBar({ handelFilter }) {
                         edge="start"
                         color="inherit"
                         aria-label="menu"
-                        sx={{ mr: 2 }}
+                        sx={{ ml: 0.2, p: 0 }}
                     >
                         <ShoppingCart />
                     </IconButton>
-                    <Typography variant="h6">upGrad E-Shop</Typography>
+                    <Typography sx={{ mr: 0,p:0 }} variant="h6">upGrad E-Shop</Typography>
                     <Box
                         component="div"
                         justifyContent="center"

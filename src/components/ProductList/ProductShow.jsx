@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import { useParams } from 'react-router-dom';
 import { URL_PRODUCT } from '../../common/constants';
